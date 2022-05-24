@@ -1,0 +1,35 @@
+.text-field__input_identity {
+  outline: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  border-bottom:1px solid rgba(0, 0, 0, .2);
+  height: 25px;
+  width: 100%;
+  padding: 0;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  font-size: 14px;
+  line-height: 17px;
+  border-bottom: 2px solid #ccc;
+  color: #fff;
+  background-color: black;
+  
+}
+.text-field__input_identity:focus {
+  outline: none;
+}
+
+.text-field__input_identity:-webkit-autofill,
+.text-field__input_identity:-webkit-autofill:hover, 
+.text-field__input_identity:-webkit-autofill:focus
+{
+  border: 2px solid #000;
+  border-bottom: 2px solid #ccc;;
+  -webkit-text-fill-color: black;
+  -webkit-box-shadow: 0 0 0px 50px #000 inset;
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #fff;
+}

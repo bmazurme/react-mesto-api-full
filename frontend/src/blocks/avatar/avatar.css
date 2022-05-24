@@ -1,0 +1,15 @@
+.avatar {
+  border-radius: 50%;
+  background-color: black;
+  width: 120px;
+  height: 120px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 120px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 899px) {
+  .avatar {
+    align-self: center;
+  }
+}

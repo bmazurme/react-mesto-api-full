@@ -1,0 +1,8 @@
+.slide__image {
+  object-fit: cover;
+  height: 100%;
+  max-width: 100%;
+  max-height: 70vh;
+  margin: 0;
+  padding: 0;
+}

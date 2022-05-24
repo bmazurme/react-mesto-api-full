@@ -1,0 +1,13 @@
+.text-field__input {
+  outline: none;
+  margin: 0;
+  border-bottom:1px solid rgba(0, 0, 0, .2);
+  height: 25px;
+  width: 100%;
+  padding: 0;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  font-size: 14px;
+  line-height: 17px;
+}

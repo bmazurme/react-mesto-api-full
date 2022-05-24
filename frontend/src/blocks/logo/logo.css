@@ -1,0 +1,19 @@
+.logo {
+  margin: 0;
+  padding: 0;
+  width: 142px;
+  height: 33px;
+  align-self: center;
+  background: url(../../images/logo.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+@media screen and (min-width: 320px) and (max-width: 899px) {
+  .logo {
+    width: 103px;
+    height: 24px;
+    grid-area: logo;
+  }
+}
