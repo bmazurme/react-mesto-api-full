@@ -18,12 +18,13 @@ const NotFoundError = require('./errors/NotFoundError');
 const {
   requestLogger,
   errorLogger
-} = require('./middlewares/logger'); 
+} = require('./middlewares/logger');
+const cors = require('cors');
 
 const { PORT = 3000 } = process.env;
 
 const app = express();
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

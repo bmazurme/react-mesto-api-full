@@ -46,7 +46,8 @@ export class Auth {
 }
 
 const auth = new Auth({
-  baseUrl: 'https://auth.nomoreparties.co',
+  // baseUrl: 'https://auth.nomoreparties.co',
+  baseUrl: 'https://api.withus.nomoredomains.xyz',
 });
 
 export default auth;
