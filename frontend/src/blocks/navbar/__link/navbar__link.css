@@ -1,0 +1,35 @@
+.navbar__link {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 10px;
+  margin-right: 0;
+  color: #A9A9A9;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+@media screen and (min-width: 479px) and (max-width: 639px) {
+  .navbar__link {
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
+
+.navbar__link:visited {
+  color: #A9A9A9;
+}
+
+.navbar__link_active:active {
+  color: #fff;
+}
+
+.navbar__link_active:visited {
+  color: #fff;
+}
+
+.navbar__link_active:hover {
+  color: #fff;
+}

@@ -1,0 +1,6 @@
+@media screen and (min-width: 320px) and (max-width: 479px) {
+  .navbar__btn_opened {
+    background-image: url(../../../../images/close.svg);
+    grid-area: button;
+  }
+}

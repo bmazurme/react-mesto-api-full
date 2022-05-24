@@ -1,0 +1,16 @@
+.card__like {
+  align-self: flex-end;
+  margin: 0;
+  padding: 0;
+  width: 22px;
+  height: 19px;
+  background: none;
+  background-image: url(../../../images/stroke.svg);
+  background-size: cover;
+  border:0;
+}
+
+.card__like:hover {
+  opacity: 0.5;
+  cursor:pointer;
+}

@@ -1,0 +1,23 @@
+.navbar__btn {
+  display: none;
+  height: 24px;
+  width: 24px;
+  background-color: rgba(0, 0, 0, 0);
+  align-self: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-image: url(../../../images/btn.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.navbar__btn:hover {
+  opacity: 0.6;
+}
+
+@media screen and (min-width: 320px) and (max-width: 479px) {
+  .navbar__btn {
+    display: flex;
+  }
+}
