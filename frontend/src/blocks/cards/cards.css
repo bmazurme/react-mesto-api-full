@@ -4,30 +4,22 @@
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
-  display: grid;
-  row-gap: 20px;
-  column-gap: 17px;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-}
-
-@media screen and (max-width: 319px) {
-  .cards {
-    display: none;
-  }
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 @media screen and (min-width: 320px) and (max-width: 599px) {
   .cards {
     margin-top: 36px;
-    width: calc(100% - 54px);
-    grid-template-columns: 1fr;
+    max-width: 282px;
+    flex-direction: column;
   }
 }
 
 @media screen and (min-width: 580px) and (max-width: 879px) {
   .cards {
-    width: calc(282px + 282px + 20px);
-    grid-template-columns: 1fr 1fr;
+    max-width: 581px;
   }
 }

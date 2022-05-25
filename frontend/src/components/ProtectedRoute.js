@@ -1,16 +1,16 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { config } from "../utils/config";
 
-function ProtectedRoute({component: Component, ...props}){
-  return(
-    <Route>
-      { 
+function ProtectedRoute({component: Component, ...props}) {
+  console.log(props);
+  return( props.cards.length > 0 ?
+    <Route>   
+      {
         () => props.isLoggedIn 
-          ? <Component {...props}/> 
-          : <Redirect to={`/${config.ROOT_URL}/sign-in`} /> 
+                ? <Component {...props}/> 
+                : <Redirect to='/sign-in' /> 
       }
-    </Route>
+    </Route> : <></>
   )
 }
 

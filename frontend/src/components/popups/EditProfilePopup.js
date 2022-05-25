@@ -1,70 +1,74 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import TextField from '../TextField';
 
 function EditProfilePopup(props) {
   const currentUser = React.useContext(CurrentUserContext);
-  const [data, setData] = React.useState({
-    name: '',
-    profession: ''
-  });
-
-  function handleChange(e) {
-    const {name, value} = e.target;
-    setData({
-      ...data,
-      [name]: value,
-    });
-  }
+  const [name, setName] = React.useState('');
+  const [description, setDescription] = React.useState('');
 
   React.useEffect(() => {
-    setData({
-      name: currentUser.name,
-      profession: currentUser.about
-    });
+      setName(currentUser.name);
+      setDescription(currentUser.about);
   }, [currentUser, props.isOpen]);
 
   function handleSubmit(evt) {
     evt.preventDefault();
     props.onUpdateUser({
-      name: data.name,
-      about: data.profession
+      name,
+      about: description
     });
   }
   
+  function handleNameChange(e) {
+    setName(e.target.value);
+  }
+
+  function handleDescriptionChange(e) {
+    setDescription(e.target.value);
+  } 
+
   return(
-    <PopupWithForm 
-      title="Редактировать профиль" 
-      name="edit"
-      buttonText={props.isLoading 
-        ? 'Загрузка...' 
-        : 'Сохранить'}  
-      isOpen={props.isOpen}
-      onClose={props.onClose}
-      onSubmit={handleSubmit}
+    <PopupWithForm title="Редактировать профиль" 
+                   name="edit"
+                   buttonText={props.isLoading 
+                               ? 'Загрузка...' 
+                               : 'Сохранить'}  
+                   isOpen={props.isOpen}
+                   onClose={props.onClose}
+                   onSubmit={handleSubmit}
     >
-      <TextField 
-        placeholder="Имя"
-        label="name"
-        handleChange={handleChange}
-        value={data.name}
-        name="name" 
-        type="text"
-        minLength="2" 
-        maxLength="40" 
+    <div className="form__box">
+      <input placeholder="Имя"
+             onChange={handleNameChange} 
+             className="form__input 
+                        form__input_type_name" 
+             name="name" 
+             required
+             minLength="2" 
+             maxLength="40" 
+             id="name-input" 
+             value={name || ''}
       />
-      <TextField 
-        placeholder="Профессия"
-        label="profession"
-        handleChange={handleChange}
-        value={data.profession}
-        name="profession" 
-        type="text"
-        minLength="2" 
-        maxLength="200" 
+      <span className="name-input-error 
+                       form__input-error"></span>
+    </div>
+
+    <div className="form__box">
+      <input placeholder="Профессия"
+             onChange={handleDescriptionChange} 
+             className="form__input form__input_type_profession" 
+             name="profession"
+             required 
+             minLength="2" 
+             maxLength="200" 
+             id="profession-input" 
+             value={description || ''}
       />
-    </PopupWithForm>
+      <span className="profession-input-error 
+                       form__input-error"></span>
+    </div>
+  </PopupWithForm>
   );
 }
 

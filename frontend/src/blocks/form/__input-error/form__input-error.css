@@ -1,6 +1,5 @@
-.text-field__input-error {
-  display: flex;
-  width: 100%;
+.form__input-error {
+  width: 164px;
   font-size: 12px;
   line-height: 15px;
   font-weight: 400;

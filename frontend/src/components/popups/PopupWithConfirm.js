@@ -7,15 +7,14 @@ function PopupWithConfirm(props) {
     props.onSubmit(props.card);
   } 
   return(
-    <PopupWithForm 
-      name="confirm"
-      title={props.title}
-      buttonText={props.isLoading 
-        ? 'Удаление...' 
-        : props.buttonText}  
-      isOpen={props.isOpen} 
-      onClose={props.onClose}
-      onSubmit={handleSubmit}
+    <PopupWithForm name="confirm"
+                   title={props.title}
+                   buttonText={props.isLoading 
+                    ? 'Удаление...' 
+                    : props.buttonText}  
+                   isOpen={props.isOpen} 
+                   onClose={props.onClose}
+                   onSubmit={handleSubmit}
     />
   );
 }

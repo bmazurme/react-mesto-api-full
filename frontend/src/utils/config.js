@@ -1,14 +1,13 @@
 export const config = {
   formSelector: '.form',
-  inputSelector: '.text-field__input',
+  inputSelector: '.form__input',
   submitButtonSelector: '.button_submit',
   inactiveButtonClass: 'button_submit_inactive',
-  inputErrorClass: 'text-field__input_type_error',
-  errorClass: 'text-field__input-error_active',
-  ROOT_URL: 'react-mesto-auth',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active',
   forms: [
     '.form_type_edit', 
     '.form_type_place', 
-    '.form_type_avatar',
+    '.form_type_avatar'
   ]
 };

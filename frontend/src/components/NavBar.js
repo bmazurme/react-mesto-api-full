@@ -1,52 +1,60 @@
+import { Link } from 'react-router-dom';
 import { Route, Switch } from "react-router-dom";
-import NavItem from './NavItem';
-import { config } from "../utils/config";
 
 function NavBar(props) {
   return(
     <>
-      <ul
-        onClick={props.handlerClick} 
-        className={`navbar ${props.isOpen 
-          ? 'navbar_opened' 
-          : ''}`}
-      >
+      <ul onClick={props.handlerClick} 
+         className={`navbar ${props.isOpen 
+                              ? 'navbar_opened' 
+                              : ''}`}>
         <Switch>
-          <Route path={`/${config.ROOT_URL}/sign-in`}>
-            <NavItem
-              to={`/${config.ROOT_URL}/sign-up`}
-              value="Регистрация"
-              active="active"
-            />
+          <Route exact path="/sign-in">
+            <li className='navbar__item'>
+              <Link to="/sign-up" 
+                    className="navbar__link 
+                               navbar__link_active">
+                Регистрация
+              </Link>
+            </li>
           </Route>
-          <Route path={`/${config.ROOT_URL}/sign-up`}>
-            <NavItem
-              to={`/${config.ROOT_URL}/sign-in`}
-              value="Войти"
-              active="active"
-            />
+
+          <Route exact path="/sign-up">
+            <li className='navbar__item'>
+              <Link to="/sign-in" 
+                    className="navbar__link 
+                               navbar__link_active">
+                Войти
+              </Link>
+            </li>
           </Route>
-          <Route exact path={`/${config.ROOT_URL}`}>
-            <NavItem
-              to={`/${config.ROOT_URL}`}
-              value={props.email}
-              onClick={()=>console.log('go to profile')}
-              active="active"
-            />
-            <NavItem
-              to={`/${config.ROOT_URL}/sign-in`}
-              value="Выйти"
-              onClick={props.onSignOut}
-            />
+
+          <Route exact path="/">
+            <li className='navbar__item'>
+              <Link to='/' 
+                    className="navbar__link 
+                               navbar__link_active" 
+                    onClick={()=>console.log('go to profile')}>
+                {props.email}
+              </Link>
+            </li>
+
+            <li className='navbar__item'>
+              <Link to='/sign-in' 
+                    className="navbar__link" 
+                    onClick={props.onSignOut}>
+                Выйти
+              </Link>
+            </li>
           </Route>
+
         </Switch>
       </ul>
-      <button
-        onClick={props.handlerClick} 
-        className={`navbar__btn ${props.isOpen 
-          ? 'navbar__btn_opened'
-          : ''}`} 
-      />
+
+      <button onClick={props.handlerClick} 
+              className={`navbar__btn ${props.isOpen 
+                                        ? 'navbar__btn_opened'
+                                        : ''}`} />
     </>
   );
 }

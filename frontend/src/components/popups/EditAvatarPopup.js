@@ -16,28 +16,26 @@ function EditAvatarPopup(props) {
   }, [props.isOpen]);
 
   return(
-    <PopupWithForm 
-      title="Обновить аватар" 
-      name="avatar" 
-      buttonText={props.isLoading 
-        ? 'Загрузка...' 
-        : 'Сохранить'}  
-      isOpen={props.isOpen} 
-      onClose={props.onClose}
-      onSubmit={handleSubmit}
+    <PopupWithForm title="Обновить аватар" 
+                   name="avatar" 
+                   buttonText={props.isLoading 
+                               ? 'Загрузка...' 
+                               : 'Сохранить'}  
+                   isOpen={props.isOpen} 
+                   onClose={props.onClose}
+                   onSubmit={handleSubmit}
     >
-    <div className="text-field">
-      <input
-        ref={avatarRef}
-        placeholder="Ссылка на картинку" 
-        name="avatar" 
-        className="text-field__input text-field__input_type_avatar"
-        id="avatar-input"
-        required 
-        type="url"
-      />
-      <span className="avatar-input-error text-field__input-error">
-      </span>
+    <div className="form__box">
+      <input ref={avatarRef}
+             placeholder="Ссылка на картинку" 
+             name="avatar" 
+             className="form__input 
+                        form__input_type_link"
+             id="avatar-input" 
+             required 
+             type="url"/>
+      <span className="avatar-input-error 
+                       form__input-error"></span>
     </div>
   </PopupWithForm>
   ); 
