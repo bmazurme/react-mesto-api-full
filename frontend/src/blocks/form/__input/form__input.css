@@ -1,0 +1,31 @@
+.form__input {
+  outline: none;
+  margin: 0;
+  border-bottom:1px solid rgba(0, 0, 0, .2);
+  height: 25px;
+  width: 100%;
+  padding: 0;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  font-size: 14px;
+  line-height: 17px;
+}
+/* .form__input:-webkit-autofill,
+.form__input:-webkit-autofill:hover, 
+.form__input:-webkit-autofill:focus, 
+.form__input:-webkit-autofill:active{
+  -webkit-box-shadow: 0 0 0 30px black inset !important;
+}
+.form__input:-webkit-autofill::first-line {
+  color: white;
+
+} */
+
+/* 
+@media screen and (min-width: 320px) and (max-width: 539px) {
+  .form__input {
+    max-width: 238px;
+  }
+} */
+
