@@ -47,9 +47,7 @@ function App() {
     return () => {
       document.removeEventListener("keydown", escFunction, false);
     }
-  },
-  // eslint-disable-next-line 
-  [isLoggedIn]);
+  }, [isLoggedIn, history]);
 
   React.useEffect(() => {
     const jwt = localStorage.getItem("jwt");
@@ -57,7 +55,7 @@ function App() {
       auth.checkToken(jwt)
         .then((res) => {
           setIsLoggedIn(true);
-          setEmail(res.data.email);
+          setEmail(res.email);
           history.push(`/`);
         })
         .catch((err) => {
