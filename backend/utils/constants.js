@@ -11,3 +11,21 @@
 //   ERROR_NOT_FOUND_CODE,
 //   ERROR_DEFAULT_CODE,
 // };
+
+const corsOptions = {
+  origin: [
+    'https://withus.nomoredomains.xyz',
+    'http://localhost:3000',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: [
+    'Content-Type',
+    'origin',
+    'x-access-token',
+  ],
+  credentials: true,
+};
+
+module.exports = { corsOptions };

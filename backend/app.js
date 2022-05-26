@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const users = require('./routes/users');
 const cards = require('./routes/cards');
 const auth = require('./middlewares/auth');
+const corsOptions = require('./utils/constants');
 const {
   validateLoginData,
   validateRegistrData,
@@ -24,7 +25,7 @@ const cors = require('cors');
 const { PORT = 3000 } = process.env;
 
 const app = express();
-app.use(cors());
+app.use('*', cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
