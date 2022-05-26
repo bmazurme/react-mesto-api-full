@@ -5,6 +5,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 function Main(props) {
 
   const currentUser = React.useContext(CurrentUserContext);
+
   return(
     <main className="main">
       <section className="profile">
@@ -28,9 +29,9 @@ function Main(props) {
       </section>
 
       <section className="cards">
-        {props.cards.map((card, i) => 
+        {props.cards.map((card) => 
           <Card
-            key={card._id + i} 
+            key={card._id} 
             card={card} 
             onCardClick={props.onCardClick}
             onCardLike={props.handleCardLike}

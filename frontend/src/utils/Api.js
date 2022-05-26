@@ -79,7 +79,7 @@ export class Api {
 const api = new Api({
   baseUrl: 'https://api.withus.nomoredomains.xyz',
   headers: {
-    authorization: `Bearer ${localStorage.getItem("token")}`,
+    authorization: `Bearer ${localStorage.getItem("jwt")}`,
     'Content-Type': 'application/json'
   }
 });

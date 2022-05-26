@@ -39,7 +39,7 @@ export class Auth {
     .then(this._checkResponse)
       .then((data) => {
         if (data.token) {
-          localStorage.setItem("token", data.token);
+          localStorage.setItem("jwt", data.token);
           return data;
         }
       })  
@@ -62,5 +62,3 @@ const auth = new Auth({
 });
 
 export default auth;
-
-// scp -r ./build/* bmazur@51.250.76.140:/home/bmazur/react-mesto-api-full/frontend/build

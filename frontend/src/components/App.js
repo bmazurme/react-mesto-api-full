@@ -16,7 +16,6 @@ import Register from "./identity/Register.js";
 import ProtectedRoute from './ProtectedRoute';
 import InfoTooltip from './popups/InfoTooltip';
 
-
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -34,38 +33,49 @@ function App() {
   const history = useHistory();
 
   React.useEffect(() => {
-    const jwt = localStorage.getItem("token");
-    if (jwt) {
-      auth.checkToken(jwt)
-          .then((res) => {
-            setIsLoggedIn(true);
-            setEmail(res.email);
-            history.push("/");
-          })
-          .catch((err) => {
-            if (err.status === 401) {
-              console.log("401 — Токен не передан или передан не в том формате.");
-            }
-            console.log(err);
-          });
-    }
-  }, [history]);
-
-  React.useEffect(() => {
-      Promise.all([api.getCards(), api.getUser()])
-      .then(([cards, userData, res]) => { 
-        console.log('=>');
-        console.log(cards);
-        setCards(cards);
+    api.getUser()
+      .then((userData) => {
         setCurrentUser(userData);
       })
       .catch((err) => console.log(err));
-  }, []);
+    api.getCards()
+      .then((cardData) => {
+        setCards(cardData);
+      })
+      .catch((err) => console.log(err));
+    document.addEventListener("keydown", escFunction, false);
+    return () => {
+      document.removeEventListener("keydown", escFunction, false);
+    }
+  },
+  // eslint-disable-next-line 
+  [isLoggedIn]);
+
+  React.useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      auth.checkToken(jwt)
+        .then((res) => {
+          setIsLoggedIn(true);
+          setEmail(res.data.email);
+          history.push(`/`);
+        })
+        .catch((err) => {
+          if (err.status === 401) {
+            console.log("401 — Токен не передан или передан не в том формате.");
+          }
+          console.log(err);
+        });
+    }
+  }, [history]);
+
+
+
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i === currentUser._id);
     api.changeLike(card._id, !isLiked).then((newCard) => {
-        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
     });
 } 
 
@@ -148,7 +158,7 @@ function App() {
   function handleLoginSubmit(email, password) {
     auth.signIn(email, password)
       .then((res) => {
-        localStorage.setItem("token", res.token);
+        localStorage.setItem("jwt", res.token);
         setIsLoggedIn(true);
         setEmail(email);
         history.push("/");
@@ -185,7 +195,7 @@ function App() {
   }
 
   function handleSignOut() {
-    localStorage.removeItem("token");
+    localStorage.removeItem("jwt");
     setIsLoggedIn(false);
     setCurrentUser({});
     history.push("/sign-in");
@@ -238,39 +248,45 @@ function App() {
 
         <Footer/>
            
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} 
-                          onClose={closeAllPopups} 
-                          onUpdateUser={handleUpdateUser}
-                          isLoading={isLoading}
+        <EditProfilePopup 
+          isOpen={isEditProfilePopupOpen} 
+          onClose={closeAllPopups} 
+          onUpdateUser={handleUpdateUser}
+          isLoading={isLoading}
         /> 
-        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} 
-                         onClose={closeAllPopups}
-                         onUpdateAvatar={handleUpdateAvatar}
-                         isLoading={isLoading}
+        <EditAvatarPopup 
+          isOpen={isEditAvatarPopupOpen} 
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+          isLoading={isLoading}
         />
-        <AddPlacePopup isOpen={isAddPlacePopupOpen}
-                       onClose={closeAllPopups}
-                       onAddPlace={handleAddPlaceSubmit}
-                       isLoading={isLoading}
+        <AddPlacePopup 
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onAddPlace={handleAddPlaceSubmit}
+          isLoading={isLoading}
         />
-        <ImagePopup card={selectedCard}
-                    onClose={closeAllPopups}
+        <ImagePopup 
+          card={selectedCard}
+          onClose={closeAllPopups}
         />
-        <PopupWithConfirm isOpen={isConfirmPopupOpen}
-                          isLoading={isLoading}
-                          card={deletedCard}
-                          onClose={closeAllPopups}
-                          onSubmit={handleCardDelete}
-                          title="Вы уверены?"
-                          buttonText="Да"
+        <PopupWithConfirm 
+          isOpen={isConfirmPopupOpen}
+          isLoading={isLoading}
+          card={deletedCard}
+          onClose={closeAllPopups}
+          onSubmit={handleCardDelete}
+          title="Вы уверены?"
+          buttonText="Да"
         />
-        <InfoTooltip isOpen={isInfoToolTipPopupOpen}
-                     onClose={closeAllPopups}
-                     isSuccess={isSuccess}
-                     text={isSuccess 
-                            ? 'Вы успешно зарегистрировались!' 
-                            : 'Что-то пошло не так! Попробуйте ещё раз.'}
-                     />
+        <InfoTooltip
+          isOpen={isInfoToolTipPopupOpen}
+          onClose={closeAllPopups}
+          isSuccess={isSuccess}
+          text={isSuccess 
+                ? 'Вы успешно зарегистрировались!' 
+                : 'Что-то пошло не так! Попробуйте ещё раз.'}
+          />
       </div>
     </CurrentUserContext.Provider>
   );
