@@ -12,7 +12,10 @@ export class Api {
 
   getUser() {
     return fetch(`${this._options.baseUrl}/users/me`, {
-        headers: this._options.headers
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        'Content-Type': 'application/json'
+      },
       })
       .then(this._checkResponse);
   }
@@ -20,7 +23,10 @@ export class Api {
   patchUser({name, about}) {
     return fetch(`${this._options.baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: this._options.headers,
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         name: name,
         about: about
@@ -32,7 +38,10 @@ export class Api {
   patchAvatar({avatar}) {
     return fetch(`${this._options.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this._options.headers,
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         avatar: avatar,
       })
@@ -42,7 +51,10 @@ export class Api {
 
   getCards() {
     return fetch(`${this._options.baseUrl}/cards`, {
-      headers: this._options.headers
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        'Content-Type': 'application/json'
+      },
     })
     .then(this._checkResponse);
   }
@@ -50,7 +62,10 @@ export class Api {
   deleteCard(cardId) {
     return fetch(`${this._options.baseUrl}/cards/${cardId}`, {
       method: 'DELETE',  
-      headers: this._options.headers,
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        'Content-Type': 'application/json'
+      },
     })
     .then(this._checkResponse);
   }
@@ -58,7 +73,10 @@ export class Api {
   postCard({name, link}) {
     return fetch(`${this._options.baseUrl}/cards`, {
       method: 'POST',  
-      headers: this._options.headers,
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         name: name,
         link: link
@@ -70,7 +88,10 @@ export class Api {
   changeLike(cardId, value) {
     return fetch(`${this._options.baseUrl}/cards/${cardId}/likes`, {
       method: value ? 'PUT' : 'DELETE',  
-      headers: this._options.headers,
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        'Content-Type': 'application/json'
+      },
     })
     .then(this._checkResponse);
   }
@@ -78,10 +99,6 @@ export class Api {
 
 const api = new Api({
   baseUrl: 'https://api.withus.nomoredomains.xyz',
-  headers: {
-    authorization: `Bearer ${localStorage.getItem("jwt")}`,
-    'Content-Type': 'application/json'
-  }
 });
 
 export default api;

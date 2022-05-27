@@ -33,21 +33,15 @@ function App() {
   const history = useHistory();
 
   React.useEffect(() => {
-    api.getUser()
-      .then((userData) => {
+    Promise.all([api.getUser(), api.getCards()])
+      .then(([userData, cards]) => {
         setCurrentUser(userData);
+        setCards(cards);
       })
-      .catch((err) => console.log(err));
-    api.getCards()
-      .then((cardData) => {
-        setCards(cardData);
-      })
-      .catch((err) => console.log(err));
-    document.addEventListener("keydown", escFunction, false);
-    return () => {
-      document.removeEventListener("keydown", escFunction, false);
-    }
-  }, [isLoggedIn, history]);
+      .catch(err => {
+        console.log(err);
+      });
+  }, [isLoggedIn]);
 
   React.useEffect(() => {
     const jwt = localStorage.getItem("jwt");
@@ -65,17 +59,35 @@ function App() {
           console.log(err);
         });
     }
-  }, [history]);
+  }, [history, isLoading]);
+  
+  function handleLoginSubmit(email, password) {
+    auth.signIn(email, password)
+      .then((res) => {
+        localStorage.setItem("jwt", res.token);
+        setIsLoggedIn(true);
+        setEmail(email);
+        history.push("/");
+      })
+      .catch((err) => {
+        setIsInfoToolTipPopupOpen(true); 
+        setIsSuccess(false); 
 
-
-
+        if (err.status === 400) {
+          console.log("400 - не передано одно из полей.");
+        } else if (err.status === 401) {
+          console.log("401 - пользователь с email не найден.");
+        }
+        console.log(err);
+      });
+  }
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i === currentUser._id);
     api.changeLike(card._id, !isLiked).then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
     });
-} 
+  } 
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -153,27 +165,6 @@ function App() {
        .catch((err) => console.log(err));
   }
 
-  function handleLoginSubmit(email, password) {
-    auth.signIn(email, password)
-      .then((res) => {
-        localStorage.setItem("jwt", res.token);
-        setIsLoggedIn(true);
-        setEmail(email);
-        history.push("/");
-      })
-      .catch((err) => {
-        setIsInfoToolTipPopupOpen(true); 
-        setIsSuccess(false); 
-
-        if (err.status === 400) {
-          console.log("400 - не передано одно из полей.");
-        } else if (err.status === 401) {
-          console.log("401 - пользователь с email не найден.");
-        }
-        console.log(err);
-      });
-  }
-
   function handleRegisterSubmit(email, password) {
     auth.signUp(email, password)
         .then((res) => {
@@ -196,6 +187,7 @@ function App() {
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);
     setCurrentUser({});
+    setEmail('');
     history.push("/sign-in");
   }
 
@@ -204,6 +196,7 @@ function App() {
       closeAllPopups();
     }
   }
+
   React.useEffect(() => {
     document.addEventListener("keydown", escFunction, false);
     return () => {
@@ -226,7 +219,8 @@ function App() {
             onAddPlace={handleAddPlaceClick}
             onCardClick={handleCardClick}
             handleCardLike={handleCardLike}
-            handleCardDelete={handleCardDeleteConfirm}                          
+            handleCardDelete={handleCardDeleteConfirm}
+            currentUser={currentUser}                       
             component={Main}                          
           />
 

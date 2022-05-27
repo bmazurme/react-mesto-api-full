@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const users = require('./routes/users');
 const cards = require('./routes/cards');
 const auth = require('./middlewares/auth');
@@ -18,9 +19,8 @@ const {
 const NotFoundError = require('./errors/NotFoundError');
 const {
   requestLogger,
-  errorLogger
+  errorLogger,
 } = require('./middlewares/logger');
-const cors = require('cors');
 
 const { PORT = 3000 } = process.env;
 
@@ -41,7 +41,7 @@ app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
-}); 
+});
 
 app.post(
   '/signin',
